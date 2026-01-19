@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Six Months of Us</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --maroon: #800020;
+            --light-maroon: #a0293d;
+            --white: #ffffff;
+            --cream: #faf8f5;
+            --text-dark: #2d2d2d;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: var(--cream);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--maroon) 0%, var(--light-maroon) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            padding: 2rem;
+            position: relative;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2rem, 6vw, 4rem);
+            margin-bottom: 1rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+        }
+
+        .hero-content p {
+            font-size: clamp(0.9rem, 2vw, 1.2rem);
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            font-style: italic;
+        }
+
+        .names {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            margin: 2rem 0;
+            font-weight: 300;
+        }
+
+        .date-range {
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+        }
+
+        .cta-btn {
+            background: var(--white);
+            color: var(--maroon);
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Georgia', serif;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 5rem 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: var(--maroon);
+            margin-bottom: 3rem;
+            font-weight: 400;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--maroon);
+        }
+
+        .timeline-item {
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.5rem;
+            top: 0.5rem;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--maroon);
+            border: 3px solid var(--cream);
+        }
+
+        .timeline-item h3 {
+            color: var(--maroon);
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        .timeline-item p {
+            color: var(--text-dark);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .memory-card {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(128, 0, 32, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .memory-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .memory-img {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, var(--light-maroon), var(--maroon));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 3rem;
+        }
+
+        .memory-caption {
+            padding: 1.5rem;
+        }
+
+        .memory-caption p {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .memory-date {
+            font-size: 0.85rem;
+            color: var(--light-maroon);
+            font-style: italic;
+        }
+
+        .reasons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .reason-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 4px solid var(--maroon);
+            box-shadow: 0 5px 15px rgba(128, 0, 32, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .reason-card:hover {
+            box-shadow: 0 8px 25px rgba(128, 0, 32, 0.15);
+            transform: translateX(5px);
+        }
+
+        .reason-card p {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+
+        .final-quote {
+            text-align: center;
+            font-size: 1.5rem;
+            color: var(--maroon);
+            margin-top: 3rem;
+            font-style: italic;
+            padding: 2rem;
+        }
+
+        .letters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .letter-btn {
+            background: var(--maroon);
+            color: var(--white);
+            padding: 2rem 1.5rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Georgia', serif;
+        }
+
+        .letter-btn:hover {
+            background: var(--light-maroon);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(128, 0, 32, 0.3);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 100%;
+            position: relative;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--maroon);
+            border: none;
+            background: none;
+        }
+
+        .modal-content h3 {
+            color: var(--maroon);
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+
+        .modal-content p {
+            font-size: 1.1rem;
+            line-height: 1.9;
+            color: var(--text-dark);
+        }
+
+        .playlist {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 20px;
+            margin-top: 2rem;
+            box-shadow: 0 5px 20px rgba(128, 0, 32, 0.1);
+        }
+
+        .playlist h3 {
+            color: var(--maroon);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .playlist-tagline {
+            font-style: italic;
+            color: var(--light-maroon);
+            margin-bottom: 2rem;
+        }
+
+        .song {
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(128, 0, 32, 0.1);
+        }
+
+        .song:last-child {
+            border-bottom: none;
+        }
+
+        .song-title {
+            font-weight: bold;
+            color: var(--maroon);
+        }
+
+        .song-reason {
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            margin-top: 0.3rem;
+        }
+
+        .future-list {
+            list-style: none;
+            margin-top: 2rem;
+        }
+
+        .future-list li {
+            background: var(--white);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--maroon);
+            font-size: 1.1rem;
+            box-shadow: 0 3px 10px rgba(128, 0, 32, 0.08);
+        }
+
+        .climax-message {
+            background: linear-gradient(135deg, var(--maroon), var(--light-maroon));
+            color: var(--white);
+            padding: 4rem 2rem;
+            border-radius: 20px;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .climax-message p {
+            font-size: 1.3rem;
+            line-height: 2;
+            margin-bottom: 1.5rem;
+        }
+
+        .climax-message .final-line {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-top: 2rem;
+        }
+
+        footer {
+            background: var(--maroon);
+            color: var(--white);
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+            font-size: 1.1rem;
+        }
+
+        footer .final-footer {
+            font-size: 1.3rem;
+            font-style: italic;
+            margin-top: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .timeline {
+                padding-left: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Six Months. One Love. Infinite Memories.</h1>
+            <p>Built with love, late nights, and way too many missed calls.</p>
+            <div class="names">Rochii ❤️ Shivv</div>
+            <div class="date-range">20th June 2025 - 20th Jan 2026</div>
+            <a href="#story" class="cta-btn">Take Me Through Our Story 💗</a>
+        </div>
+    </section>
+
+    <!-- Our Story Timeline -->
+<section class="section" id="story">
+    <h2 class="section-title">Our Story</h2>
+    <div class="timeline">
+        <div class="timeline-item">
+            <h3>How We Met</h3>
+            <p>22nd June 2025, 3:56 AM. One late-night Hinge swipe, one line about your username reminding me of “Tuta Hua Saaz Hu Main” — and somehow, the universe decided to intervene. What started as a random moment felt anything but random.</p>
+        </div>
+        <div class="timeline-item">
+            <h3>First Real Conversation</h3>
+            <p>We talked until 5 in the morning, losing track of time like it didn’t exist. Conversations flowed effortlessly, laughs felt natural, and before we knew it, Instagram was exchanged — not as an afterthought, but as a sign this wasn’t ending there.</p>
+        </div>
+        <div class="timeline-item">
+            <h3>When I Knew It Was You</h3>
+            <p>Somewhere between your replies and the way you understood things without me explaining them, it clicked. This wasn’t just attraction — it felt familiar, comfortable, and meant to stay.</p>
+        </div>
+        <div class="timeline-item">
+            <h3>Long Distance, Same Heart</h3>
+            <p>Miles tried to stand between us, but they never stood a chance. Late-night calls, endless texts, and choosing each other daily proved that distance can stretch love, not break it.</p>
+        </div>
+        <div class="timeline-item">
+            <h3>Six Months Today</h3>
+            <p>Six months of growth, patience, laughter, and love. Six months of choosing us. And honestly — this still feels like the beginning of something far bigger, deeper, and forever.</p>
+        </div>
+    </div>
+</section>
+
+    <!-- Memory Wall -->
+<section class="section">
+    <h2 class="section-title">Our Memories</h2>
+    <div class="memory-grid">
+        <div class="memory-card">
+            <div class="memory-img">📞</div>
+            <div class="memory-caption">
+                <p>“That call meant to last 5 minutes”</p>
+                <span class="memory-date">Somehow turned into 3 hours of us</span>
+            </div>
+        </div>
+
+        <div class="memory-card">
+            <div class="memory-img">💬</div>
+            <div class="memory-caption">
+                <p>“Distance tried, we didn’t budge”</p>
+                <span class="memory-date">Endless call logs, endless us</span>
+            </div>
+        </div>
+
+        <div class="memory-card">
+            <div class="memory-img">🤍</div>
+            <div class="memory-caption">
+                <p>“My safe place in human form”</p>
+                <span class="memory-date">No matter the day, no matter the mood</span>
+            </div>
+        </div>
+
+        <div class="memory-card">
+            <div class="memory-img">✨</div>
+            <div class="memory-caption">
+                <p>“That one inside joke”</p>
+                <span class="memory-date">The kind that lives rent-free in my head</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+    <!-- Why You're My Person -->
+    <section class="section">
+        <h2 class="section-title">Why You're My Person</h2>
+        <div class="reasons-grid">
+            <div class="reason-card">
+                <p>You calm my chaos.</p>
+            </div>
+            <div class="reason-card">
+                <p>You believe in me when I doubt myself.</p>
+            </div>
+            <div class="reason-card">
+                <p>You feel like home—even from miles away.</p>
+            </div>
+            <div class="reason-card">
+                <p>You make the future feel safe.</p>
+            </div>
+        </div>
+        <div class="final-quote">
+            "Loving you is the easiest decision I've ever made."
+        </div>
+    </section>
+
+    <!-- Letters Section -->
+    <section class="section">
+        <h2 class="section-title">Letters for You</h2>
+        <div class="letters-grid">
+            <button class="letter-btn" onclick="openModal('miss')">Open When I Miss You</button>
+            <button class="letter-btn" onclick="openModal('low')">How Much I Love You</button>
+            <button class="letter-btn" onclick="openModal('angry')">How Beautiful You Are</button>
+            <button class="letter-btn" onclick="openModal('hug')">Open When You Need a Hug</button>
+        </div>
+    </section>
+
+    <!-- Playlist -->
+    <!-- Playlist -->
+<section class="section">
+    <h2 class="section-title">Songs That Feel Like Us</h2>
+    <div class="playlist">
+        <h3>Our Songs</h3>
+        <p class="playlist-tagline">Every song holds a version of us.</p>
+
+        <div class="song">
+            <div class="song-title">Dekha Hi Nahi – Osho Jain</div>
+            <div class="song-reason">Because loving you felt effortless, like something I didn’t even realize was happening — until it already had.</div>
+        </div>
+
+        <div class="song">
+            <div class="song-title">Yellow – Coldplay</div>
+            <div class="song-reason">Because everything feels brighter with you in it, and somehow, you make the world feel warmer just by being you.</div>
+        </div>
+
+        <div class="song">
+            <div class="song-title">Ishq Di Baajiyaan – Diljit Dosanjh</div>
+            <div class="song-reason">Because loving you feels like taking a chance — one I’d choose every single time, without fear.</div>
+        </div>
+    </div>
+</section>
+
+
+    <!-- Future Us -->
+    <section class="section">
+        <h2 class="section-title">Future Us</h2>
+        <ul class="future-list">
+            <li>Late-night drives with no destination, just us and music</li>
+            <li>Living together someday, making our place feel like ours</li>
+            <li>Celebrating every milestone, big and small, in person</li>
+            <li>Traveling to places we've only talked about</li>
+            <li>Growing together, not just older—building something real</li>
+        </ul>
+    </section>
+
+    <!-- Climax Message -->
+    <section class="section">
+        <h2 class="section-title">Six Months</h2>
+        <div class="climax-message">
+            <p>Thank you for being patient with me, for believing in us when distance made it hard, and for choosing me every single day.</p>
+            <p>The last six months have shown me what real love feels like. It's not perfect, but it's ours—and that makes it everything.</p>
+            <p>I'm grateful for every call, every text, every moment we've fought for.</p>
+            <p class="final-line">Six months down. Forever to go—at our pace, together.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>Made by your favorite human</p>
+        <p>January 20, 2026</p>
+        <p class="final-footer">"If I could, I'd choose you again—every single time."</p>
+    </footer>
+
+    <!-- Modal -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal()">×</button>
+            <h3 id="modal-title"></h3>
+            <p id="modal-text"></p>
+        </div>
+    </div>
+
+    <script>
+    const letters = {
+        miss: {
+            title: "When I Miss You",
+            text: "Missing you comes in waves. Some days it’s quiet, some days it hits all at once. But even in the distance, you’re woven into everything I do. Every day apart is just a step closer to the day I get to hold you again. Until then, remember this — my heart knows where yours is. Always."
+        },
+        love: {
+            title: "How Much I Love You",
+            text: "I love you in the small, everyday ways — in how you exist, in how you care, in how you make ordinary moments feel lighter. Loving you doesn’t feel loud or forced; it feels steady and sure. You’re not just someone I love — you’re someone I choose, again and again, without hesitation."
+        },
+        beautiful: {
+            title: "How Beautiful You Are",
+            text: "You’re beautiful in ways that have nothing to do with mirrors. It’s in the way you think, the way you speak, the way you soften a room just by being in it. Your smile, your expressions, your little habits — they stay with me long after the day ends. You don’t try to be adorable. You just are."
+        },
+        hug: {
+            title: "When You Need a Hug",
+            text: "I wish I could be there to hold you right now. But until I can, know that my arms are always open for you — even from here. You're safe with me. You're loved. You're enough, exactly as you are. Take a deep breath. You're going to get through this, and I'm right here with you."
+        }
+    };
+
+    function openModal(type) {
+        const modal = document.getElementById('modal');
+        const title = document.getElementById('modal-title');
+        const text = document.getElementById('modal-text');
+        
+        title.textContent = letters[type].title;
+        text.textContent = letters[type].text;
+        modal.classList.add('active');
+    }
+
+    function closeModal() {
+        document.getElementById('modal').classList.remove('active');
+    }
+
+    document.getElementById('modal').addEventListener('click', function(e) {
+        if (e.target === this) closeModal();
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
