@@ -37,6 +37,28 @@
             color: var(--white);
             padding: 2rem;
             position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: floatPattern 20s linear infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes floatPattern {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
         }
 
         .hero-content h1 {
@@ -44,6 +66,7 @@
             margin-bottom: 1rem;
             font-weight: 400;
             letter-spacing: 2px;
+            animation: fadeInUp 1s ease;
         }
 
         .hero-content p {
@@ -51,18 +74,32 @@
             margin-bottom: 2rem;
             opacity: 0.95;
             font-style: italic;
+            animation: fadeInUp 1s ease 0.2s backwards;
         }
 
         .names {
             font-size: clamp(1.5rem, 4vw, 2.5rem);
             margin: 2rem 0;
             font-weight: 300;
+            animation: fadeInUp 1s ease 0.4s backwards;
         }
 
         .date-range {
             font-size: 1.1rem;
             margin-bottom: 3rem;
             opacity: 0.9;
+            animation: fadeInUp 1s ease 0.6s backwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .cta-btn {
@@ -77,11 +114,13 @@
             font-family: 'Georgia', serif;
             text-decoration: none;
             display: inline-block;
+            animation: fadeInUp 1s ease 0.8s backwards;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
         .cta-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.3);
         }
 
         .section {
@@ -96,6 +135,21 @@
             color: var(--maroon);
             margin-bottom: 3rem;
             font-weight: 400;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--maroon);
         }
 
         .timeline {
@@ -110,12 +164,31 @@
             top: 0;
             bottom: 0;
             width: 2px;
-            background: var(--maroon);
+            background: linear-gradient(to bottom, var(--maroon), var(--light-maroon));
         }
 
         .timeline-item {
             margin-bottom: 3rem;
             position: relative;
+            opacity: 0;
+            animation: slideInRight 0.6s ease forwards;
+        }
+
+        .timeline-item:nth-child(1) { animation-delay: 0.1s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.2s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.3s; }
+        .timeline-item:nth-child(4) { animation-delay: 0.4s; }
+        .timeline-item:nth-child(5) { animation-delay: 0.5s; }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         .timeline-item::before {
@@ -128,6 +201,12 @@
             border-radius: 50%;
             background: var(--maroon);
             border: 3px solid var(--cream);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover::before {
+            transform: scale(1.4);
+            box-shadow: 0 0 0 8px rgba(128, 0, 32, 0.1);
         }
 
         .timeline-item h3 {
@@ -154,11 +233,12 @@
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 5px 20px rgba(128, 0, 32, 0.1);
-            transition: transform 0.3s ease;
+            transition: all 0.4s ease;
         }
 
         .memory-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(128, 0, 32, 0.2);
         }
 
         .memory-img {
@@ -170,6 +250,11 @@
             justify-content: center;
             color: var(--white);
             font-size: 3rem;
+            transition: transform 0.4s ease;
+        }
+
+        .memory-card:hover .memory-img {
+            transform: scale(1.1);
         }
 
         .memory-caption {
@@ -205,7 +290,8 @@
 
         .reason-card:hover {
             box-shadow: 0 8px 25px rgba(128, 0, 32, 0.15);
-            transform: translateX(5px);
+            transform: translateX(8px);
+            border-left-width: 6px;
         }
 
         .reason-card p {
@@ -240,12 +326,32 @@
             cursor: pointer;
             transition: all 0.3s ease;
             font-family: 'Georgia', serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .letter-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .letter-btn:hover::before {
+            width: 300px;
+            height: 300px;
         }
 
         .letter-btn:hover {
             background: var(--light-maroon);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(128, 0, 32, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(128, 0, 32, 0.4);
         }
 
         .modal {
@@ -255,15 +361,22 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.85);
             z-index: 1000;
             align-items: center;
             justify-content: center;
             padding: 2rem;
+            backdrop-filter: blur(5px);
         }
 
         .modal.active {
             display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .modal-content {
@@ -275,6 +388,18 @@
             position: relative;
             max-height: 80vh;
             overflow-y: auto;
+            animation: slideUp 0.4s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .close-modal {
@@ -286,6 +411,11 @@
             color: var(--maroon);
             border: none;
             background: none;
+            transition: transform 0.3s ease;
+        }
+
+        .close-modal:hover {
+            transform: rotate(90deg);
         }
 
         .modal-content h3 {
@@ -306,6 +436,11 @@
             border-radius: 20px;
             margin-top: 2rem;
             box-shadow: 0 5px 20px rgba(128, 0, 32, 0.1);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .playlist:hover {
+            box-shadow: 0 8px 30px rgba(128, 0, 32, 0.15);
         }
 
         .playlist h3 {
@@ -323,6 +458,12 @@
         .song {
             padding: 1rem 0;
             border-bottom: 1px solid rgba(128, 0, 32, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .song:hover {
+            padding-left: 1rem;
+            background: rgba(128, 0, 32, 0.02);
         }
 
         .song:last-child {
@@ -353,6 +494,12 @@
             border-left: 4px solid var(--maroon);
             font-size: 1.1rem;
             box-shadow: 0 3px 10px rgba(128, 0, 32, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .future-list li:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 20px rgba(128, 0, 32, 0.15);
         }
 
         .climax-message {
@@ -362,6 +509,7 @@
             border-radius: 20px;
             margin-top: 2rem;
             text-align: center;
+            box-shadow: 0 10px 40px rgba(128, 0, 32, 0.3);
         }
 
         .climax-message p {
@@ -402,7 +550,6 @@
     </style>
 </head>
 <body>
-    <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
             <h1>Six Months. One Love. Infinite Memories.</h1>
@@ -413,73 +560,66 @@
         </div>
     </section>
 
-    <!-- Our Story Timeline -->
-<section class="section" id="story">
-    <h2 class="section-title">Our Story</h2>
-    <div class="timeline">
-        <div class="timeline-item">
-            <h3>How We Met</h3>
-            <p>22nd June 2025, 3:56 AM. One late-night Hinge swipe, one line about your username reminding me of “Tuta Hua Saaz Hu Main” — and somehow, the universe decided to intervene. What started as a random moment felt anything but random.</p>
-        </div>
-        <div class="timeline-item">
-            <h3>First Real Conversation</h3>
-            <p>We talked until 5 in the morning, losing track of time like it didn’t exist. Conversations flowed effortlessly, laughs felt natural, and before we knew it, Instagram was exchanged — not as an afterthought, but as a sign this wasn’t ending there.</p>
-        </div>
-        <div class="timeline-item">
-            <h3>When I Knew It Was You</h3>
-            <p>Somewhere between your replies and the way you understood things without me explaining them, it clicked. This wasn’t just attraction — it felt familiar, comfortable, and meant to stay.</p>
-        </div>
-        <div class="timeline-item">
-            <h3>Long Distance, Same Heart</h3>
-            <p>Miles tried to stand between us, but they never stood a chance. Late-night calls, endless texts, and choosing each other daily proved that distance can stretch love, not break it.</p>
-        </div>
-        <div class="timeline-item">
-            <h3>Six Months Today</h3>
-            <p>Six months of growth, patience, laughter, and love. Six months of choosing us. And honestly — this still feels like the beginning of something far bigger, deeper, and forever.</p>
-        </div>
-    </div>
-</section>
-
-    <!-- Memory Wall -->
-<section class="section">
-    <h2 class="section-title">Our Memories</h2>
-    <div class="memory-grid">
-        <div class="memory-card">
-            <div class="memory-img">📞</div>
-            <div class="memory-caption">
-                <p>“That call meant to last 5 minutes”</p>
-                <span class="memory-date">Somehow turned into 3 hours of us</span>
+    <section class="section" id="story">
+        <h2 class="section-title">Our Story</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <h3>How We Met</h3>
+                <p>22nd June 2025, 3:56 AM. One late-night Hinge swipe, one line about your username reminding me of "Tuta Hua Saaz Hu Main" — and somehow, the universe decided to intervene. What started as a random moment felt anything but random.</p>
+            </div>
+            <div class="timeline-item">
+                <h3>First Real Conversation</h3>
+                <p>We talked until 5 in the morning, losing track of time like it didn't exist. Conversations flowed effortlessly, laughs felt natural, and before we knew it, Instagram was exchanged — not as an afterthought, but as a sign this wasn't ending there.</p>
+            </div>
+            <div class="timeline-item">
+                <h3>When I Knew It Was You</h3>
+                <p>Somewhere between your replies and the way you understood things without me explaining them, it clicked. This wasn't just attraction — it felt familiar, comfortable, and meant to stay.</p>
+            </div>
+            <div class="timeline-item">
+                <h3>Long Distance, Same Heart</h3>
+                <p>Miles tried to stand between us, but they never stood a chance. Late-night calls, endless texts, and choosing each other daily proved that distance can stretch love, not break it.</p>
+            </div>
+            <div class="timeline-item">
+                <h3>Six Months Today</h3>
+                <p>Six months of growth, patience, laughter, and love. Six months of choosing us. And honestly — this still feels like the beginning of something far bigger, deeper, and forever.</p>
             </div>
         </div>
+    </section>
 
-        <div class="memory-card">
-            <div class="memory-img">💬</div>
-            <div class="memory-caption">
-                <p>“Distance tried, we didn’t budge”</p>
-                <span class="memory-date">Endless call logs, endless us</span>
+    <section class="section">
+        <h2 class="section-title">Our Memories</h2>
+        <div class="memory-grid">
+            <div class="memory-card">
+                <div class="memory-img">📞</div>
+                <div class="memory-caption">
+                    <p>"That call meant to last 5 minutes"</p>
+                    <span class="memory-date">Somehow turned into 3 hours of us</span>
+                </div>
+            </div>
+            <div class="memory-card">
+                <div class="memory-img">💬</div>
+                <div class="memory-caption">
+                    <p>"Distance tried, we didn't budge"</p>
+                    <span class="memory-date">Endless call logs, endless us</span>
+                </div>
+            </div>
+            <div class="memory-card">
+                <div class="memory-img">🤍</div>
+                <div class="memory-caption">
+                    <p>"My safe place in human form"</p>
+                    <span class="memory-date">No matter the day, no matter the mood</span>
+                </div>
+            </div>
+            <div class="memory-card">
+                <div class="memory-img">✨</div>
+                <div class="memory-caption">
+                    <p>"That one inside joke"</p>
+                    <span class="memory-date">The kind that lives rent-free in my head</span>
+                </div>
             </div>
         </div>
+    </section>
 
-        <div class="memory-card">
-            <div class="memory-img">🤍</div>
-            <div class="memory-caption">
-                <p>“My safe place in human form”</p>
-                <span class="memory-date">No matter the day, no matter the mood</span>
-            </div>
-        </div>
-
-        <div class="memory-card">
-            <div class="memory-img">✨</div>
-            <div class="memory-caption">
-                <p>“That one inside joke”</p>
-                <span class="memory-date">The kind that lives rent-free in my head</span>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-    <!-- Why You're My Person -->
     <section class="section">
         <h2 class="section-title">Why You're My Person</h2>
         <div class="reasons-grid">
@@ -501,44 +641,36 @@
         </div>
     </section>
 
-    <!-- Letters Section -->
     <section class="section">
         <h2 class="section-title">Letters for You</h2>
         <div class="letters-grid">
             <button class="letter-btn" onclick="openModal('miss')">Open When I Miss You</button>
-            <button class="letter-btn" onclick="openModal('low')">How Much I Love You</button>
-            <button class="letter-btn" onclick="openModal('angry')">How Beautiful You Are</button>
+            <button class="letter-btn" onclick="openModal('love')">How Much I Love You</button>
+            <button class="letter-btn" onclick="openModal('beautiful')">How Beautiful You Are</button>
             <button class="letter-btn" onclick="openModal('hug')">Open When You Need a Hug</button>
         </div>
     </section>
 
-    <!-- Playlist -->
-    <!-- Playlist -->
-<section class="section">
-    <h2 class="section-title">Songs That Feel Like Us</h2>
-    <div class="playlist">
-        <h3>Our Songs</h3>
-        <p class="playlist-tagline">Every song holds a version of us.</p>
-
-        <div class="song">
-            <div class="song-title">Dekha Hi Nahi – Osho Jain</div>
-            <div class="song-reason">Because loving you felt effortless, like something I didn’t even realize was happening — until it already had.</div>
+    <section class="section">
+        <h2 class="section-title">Songs That Feel Like Us</h2>
+        <div class="playlist">
+            <h3>Our Songs</h3>
+            <p class="playlist-tagline">Every song holds a version of us.</p>
+            <div class="song">
+                <div class="song-title">Dekha Hi Nahi – Osho Jain</div>
+                <div class="song-reason">Because loving you felt effortless, like something I didn't even realize was happening — until it already had.</div>
+            </div>
+            <div class="song">
+                <div class="song-title">Yellow – Coldplay</div>
+                <div class="song-reason">Because everything feels brighter with you in it, and somehow, you make the world feel warmer just by being you.</div>
+            </div>
+            <div class="song">
+                <div class="song-title">Ishq Di Baajiyaan – Diljit Dosanjh</div>
+                <div class="song-reason">Because loving you feels like taking a chance — one I'd choose every single time, without fear.</div>
+            </div>
         </div>
+    </section>
 
-        <div class="song">
-            <div class="song-title">Yellow – Coldplay</div>
-            <div class="song-reason">Because everything feels brighter with you in it, and somehow, you make the world feel warmer just by being you.</div>
-        </div>
-
-        <div class="song">
-            <div class="song-title">Ishq Di Baajiyaan – Diljit Dosanjh</div>
-            <div class="song-reason">Because loving you feels like taking a chance — one I’d choose every single time, without fear.</div>
-        </div>
-    </div>
-</section>
-
-
-    <!-- Future Us -->
     <section class="section">
         <h2 class="section-title">Future Us</h2>
         <ul class="future-list">
@@ -550,7 +682,6 @@
         </ul>
     </section>
 
-    <!-- Climax Message -->
     <section class="section">
         <h2 class="section-title">Six Months</h2>
         <div class="climax-message">
@@ -561,14 +692,12 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <p>Made by your favorite human</p>
         <p>January 20, 2026</p>
         <p class="final-footer">"If I could, I'd choose you again—every single time."</p>
     </footer>
 
-    <!-- Modal -->
     <div class="modal" id="modal">
         <div class="modal-content">
             <button class="close-modal" onclick="closeModal()">×</button>
@@ -578,52 +707,51 @@
     </div>
 
     <script>
-    const letters = {
-        miss: {
-            title: "When I Miss You",
-            text: "Missing you comes in waves. Some days it’s quiet, some days it hits all at once. But even in the distance, you’re woven into everything I do. Every day apart is just a step closer to the day I get to hold you again. Until then, remember this — my heart knows where yours is. Always."
-        },
-        love: {
-            title: "How Much I Love You",
-            text: "I love you in the small, everyday ways — in how you exist, in how you care, in how you make ordinary moments feel lighter. Loving you doesn’t feel loud or forced; it feels steady and sure. You’re not just someone I love — you’re someone I choose, again and again, without hesitation."
-        },
-        beautiful: {
-            title: "How Beautiful You Are",
-            text: "You’re beautiful in ways that have nothing to do with mirrors. It’s in the way you think, the way you speak, the way you soften a room just by being in it. Your smile, your expressions, your little habits — they stay with me long after the day ends. You don’t try to be adorable. You just are."
-        },
-        hug: {
-            title: "When You Need a Hug",
-            text: "I wish I could be there to hold you right now. But until I can, know that my arms are always open for you — even from here. You're safe with me. You're loved. You're enough, exactly as you are. Take a deep breath. You're going to get through this, and I'm right here with you."
+        const letters = {
+            miss: {
+                title: "When I Miss You",
+                text: "Missing you comes in waves. Some days it's quiet, some days it hits all at once. But even in the distance, you're woven into everything I do. Every day apart is just a step closer to the day I get to hold you again. Until then, remember this — my heart knows where yours is. Always."
+            },
+            love: {
+                title: "How Much I Love You",
+                text: "I love you in the small, everyday ways — in how you exist, in how you care, in how you make ordinary moments feel lighter. Loving you doesn't feel loud or forced; it feels steady and sure. You're not just someone I love — you're someone I choose, again and again, without hesitation."
+            },
+            beautiful: {
+                title: "How Beautiful You Are",
+                text: "You're beautiful in ways that have nothing to do with mirrors. It's in the way you think, the way you speak, the way you soften a room just by being in it. Your smile, your expressions, your little habits — they stay with me long after the day ends. You don't try to be adorable. You just are."
+            },
+            hug: {
+                title: "When You Need a Hug",
+                text: "I wish I could be there to hold you right now. But until I can, know that my arms are always open for you — even from here. You're safe with me. You're loved. You're enough, exactly as you are. Take a deep breath. You're going to get through this, and I'm right here with you."
+            }
+        };
+
+        function openModal(type) {
+            const modal = document.getElementById('modal');
+            const title = document.getElementById('modal-title');
+            const text = document.getElementById('modal-text');
+            
+            title.textContent = letters[type].title;
+            text.textContent = letters[type].text;
+            modal.classList.add('active');
         }
-    };
 
-    function openModal(type) {
-        const modal = document.getElementById('modal');
-        const title = document.getElementById('modal-title');
-        const text = document.getElementById('modal-text');
-        
-        title.textContent = letters[type].title;
-        text.textContent = letters[type].text;
-        modal.classList.add('active');
-    }
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+        }
 
-    function closeModal() {
-        document.getElementById('modal').classList.remove('active');
-    }
+        document.getElementById('modal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
 
-    document.getElementById('modal').addEventListener('click', function(e) {
-        if (e.target === this) closeModal();
-    });
-
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            document.querySelector(this.getAttribute('href')).scrollIntoView({
-                behavior: 'smooth'
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
             });
         });
-    });
-</script>
-
+    </script>
 </body>
 </html>
